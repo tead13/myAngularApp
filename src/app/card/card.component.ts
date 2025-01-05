@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { Input } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, OnInit } from '@angular/core';
 import { Driver } from '../driver';
-import { EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,17 +9,33 @@ import { CommonModule } from '@angular/common';
   styleUrl: './card.component.css'
 })
 export class CardComponent implements OnInit{
+  //postoecki inputi
+  @Input() motov:Driver | undefined;
+  @Input() indx: Number | undefined;
 
-  @Input()
-  motov:Driver | undefined;
-
-  @Input()
-  indx: Number | undefined;
-
+  //EventEmitter za interakcii so card
   cuci = new EventEmitter<Driver>();
+  
+  //sostojbu za ARIA atributi
+  isLoading = false; //aria-busy
+  isExpanded = false; //aria-expanded
+  isError = false; //aria-invalid
 
+  //otvara slikata na vozacot vo nov tab
   onDrvView(){
-    //console.log("eve kliknav bace");
+    this.isLoading = true; // se postavuva na loading sostojba za aria-busy
+    let link: string | undefined;
+
+    if(this.motov?.iconUrl){
+      link = this.motov?.iconUrl;
+    } else {
+      link = "https://www.google.com";
+    }
+
+    window.open(link, "_blank");
+    this.isLoading = false; //pravi reset na loading sostojbata
+    
+    /*console.log("eve kliknav bace");
     //this.cuci.emit(this.motov)
     
     let link: string | undefined; // --> TS
@@ -36,7 +49,7 @@ export class CardComponent implements OnInit{
       link = "https://www.google.com"
     };
 
-    window.open(link, "_blank")
+    window.open(link, "_blank")*/
   }
 
   klasi(){

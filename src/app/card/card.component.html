@@ -1,4 +1,84 @@
-<div *ngIf="motov?.name != undefined" [ngClass]="klasi2()">
+<!--modifikacii so ARIA-->
+
+<div *ngIf="motov?.name != undefined" 
+    [ngClass]="klasi2()"
+    role="article"                                          
+    [attr.aria-labelledby] ="'driver-' + indx"  
+    class="driver-card">
+</div>
+<!-- 5: dava role za card, 6: se povrzuva so heading za screen readers-->
+
+<!-- so loading so aria-live(definira delovi na stranata koi se live) -->
+<div aria-live="polite"
+    [attr.aria-busy] = "isLoading">
+    <div *ngIf="isLoading">Loading drivers information...</div>
+</div>
+
+<!-- Driver name soo soodvetna heading struktura -->
+<h2 [id]="'driver-' + indx" 
+class="driver-name"
+[style.text-decoration]="stilovi()">
+{{indx +'. '+ motov?.name}}
+</h2>
+
+<!-- slikata da e pristapna na sekoj nacin-->
+<div class="image-container">
+    <img *ngIf="motov?.iconUrl; else noImg" 
+        [src]="motov?.iconUrl"
+        [attr.alt]="'Photo of driver ' + motov?.name"  
+        class="driver-pic"
+        [attr.aria-describedby]="'desc-' + indx">      <!-- se povrzuva so prodolzeniot opis; red 28: alternativen opis na slikata-->
+
+    <ng-template #noImg>
+        <div role="img" 
+            aria-label="No image available"
+            class="no-image-placeholder">
+            No image available
+        </div>
+    </ng-template>
+
+    <!-- skrien opis za screen readers -->
+    <div [id]="'desc-' + indx" 
+        class="visually-hidden">
+        {{motov?.name}} from team {{motov?.team}}
+    </div>
+</div>
+
+<!-- info za timot-->
+<div class="info-section"
+    role="region"
+    aria-label="Driver details">
+
+    <div aria-label="Team">
+        {{motov?.team}}
+    </div>
+
+    <!-- tocki so live updates -->
+    <div class="points"
+        aria-live="polite"
+        [attr.aria-atomic]="true">
+        Points: {{motov?.points}}
+    </div>
+
+    <!-- kategori so clear labeli -->
+    <div [ngSwitch]="motov?.category"
+        role="region"
+        aria-label="Driver category">
+        <div *ngSwitchCase="'EXPERT'" aria-label="Expert driver">EXPERT</div>
+        <div *ngSwitchCase="'LUNATIC'" aria-label="Lunatic driver">5arda</div>
+        <div *ngSwitchCase="'ASD'" aria-label="ASD driver">Dusicka</div>
+        <div *ngSwitchDefault aria-label="Uncategorized">No comment</div>
+    </div>
+
+    <!-- interaktivno kopce so clear purpose -->
+    <button class="view-btn"
+            [attr.aria-label]="'View ' + motov?.name + '\'s full profile'"
+            (click)="onDrvView()">
+        View driver
+    </button>
+</div>
+
+<!--<div *ngIf="motov?.name != undefined" [ngClass]="klasi2()">
     
     <ng-template role="alert" aria-live="polite" #noImg>
         Ska slika
@@ -42,6 +122,7 @@
 
 
 </div>
+-->
 
 
 <!--moj kod

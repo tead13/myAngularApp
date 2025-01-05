@@ -7,6 +7,23 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
+
+.driver-card:focus-within{
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/*da se skrie kontentot  vizuelno no da e dostaben za screen readers*/
+.visually-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
   
 .driver-card:hover {
     transform: translateY(-3px);
@@ -33,6 +50,18 @@
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/*za sliki koi falat*/
+.no-image-placeholder{
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #666;
 }
   
   /*tekstot so informacii*/
@@ -64,6 +93,11 @@
     border-radius: 4px;
     cursor: pointer;
     width: fit-content;
+}
+
+.view-btn:focus{
+  outline: 2px solid #357abd;
+  outline-offset: 2px;
 }
   
 .view-btn:hover {

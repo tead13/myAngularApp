@@ -1,4 +1,52 @@
+<div role="main" 
+     aria-label="Driver information dashboard">
+     
+    <!-- Live region za dinamicki updates -->
+    <div aria-live="polite" 
+         class="drivers-list"
+         [attr.aria-busy]="isLoading">
+        
+        <app-card 
+            *ngFor="let voz of vozaci; index as indeks; first as prv; last as posleden; odd as nepar; even as par"
+            (click)="onAppView()"
+            [motov]="voz"
+            [indx]="indeks+1"
+            [class.is-first]="prv"
+            [class.is-even]="par"
+            [class.is-odd]="nepar"
+            [class.is-last]="posleden">
+        </app-card>
+    </div>
 
+    <!-- Homework del so ARIA  -->
+    <button [attr.aria-expanded]="isVisible"
+            aria-controls="homework-section"
+            (click)="Dze()">
+        {{isVisible ? 'Hide' : 'Show'}} homework
+    </button>
+
+    <div id="homework-section"
+         role="region"
+         aria-label="Homework section"
+         [attr.aria-hidden]="!isVisible"
+         [ngStyle]="{'display': isVisible ? 'block' : 'none'}">
+        ZA DOMA: <br>
+        aria-live <br>
+        aria-label<br>
+        aria-describedby <br>
+        aria-describedby with Visual Styling <br>
+        aria-expanded <br>
+        aria-hidden <br>
+        aria-role="region" <br>
+        aria-tooltip / aria-labelledby <br>
+        aria-invalid <br>
+        aria-live vklucuvajki Visual Feedback <br>
+        aria-busy <br>
+    </div>
+</div>
+
+
+<!--
 <div>
   <app-card  *ngFor="let voz of vozaci; index as indeks; first as prv; last as posleden; odd as nepar; even as par"
   
@@ -74,3 +122,4 @@
       aria-busy <br>
   </div>
 </div>
+-->

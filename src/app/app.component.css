@@ -4,6 +4,12 @@
     color: #333; 
 }
 
+button:focus,
+a:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
 .is-odd {
     color: #2ecc71;
     font-weight: bold;
@@ -29,6 +35,11 @@
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
     color: #3498db;
+}
+
+.drivers-list:focus-within {
+    outline: 2px solid #3498db;
+    outline-offset: 4px;
 }
 
 .is-odd:hover,
